@@ -1,0 +1,99 @@
+
+class graphs:
+    graph = {}
+
+    def switch(self):
+        option = 0
+        while (option != 7):
+            print("enter the choice from following")
+            print("1. add node")
+            print("2. add edge")
+            print("3. delete node")
+            print("4. delete edge")
+            print("5. print graph")
+            break
+        op = int(input("enter your choice"))
+        if op == 1:
+            self.add_node()
+        elif op == 2:
+            self.add_edge()
+        elif op == 3:
+            self.delete_node()
+        elif op == 4:
+            self.delete_edge()
+        elif op == 5:
+            self.print_graph()
+        else:
+            print("enter option from 1-6")
+
+    def add_node(self):
+        a = int(input("enter the number of nodes you want to enter"))
+        for i in range(a):
+            b = int(input("enter the node/key you want to enter"))
+            if b not in self.graph:
+                self.graph[b] = []
+            else:
+                print("already present")
+        print(self.graph)
+        self.switch()
+
+    def add_edge(self):
+        a = int(input("enter the number of edges you want to add"))
+        for i in range(a):
+            b = int(input("enter the starting node"))
+            c = int(input("enter the end node"))
+            if b and c in self.graph and not self.graph[b].__contains__(c):
+                self.graph[b].append(c)
+            elif b and c in self.graph and self.graph[b].__contains__(c):
+                print("edge present")
+            elif b in self.graph and c not in self.graph:
+                self.graph[c] = []
+                self.graph[b].append(c)
+            else:
+                print("both not present.First add node")
+        print(self.graph)
+        self.switch()
+
+    def delete_node(self):
+        a = int(input("enter the number of node you want to delete"))
+        for i in range(a):
+            b = int(input("enter the node/key you want to delete"))
+            if b in self.graph:
+                for node in self.graph:
+                    for neighbour in self.graph[node]:
+                        # if b in graph:
+                        if neighbour == b:
+                            self.graph[node].remove(b)
+                        else:
+                            pass
+            if b in self.graph:
+                del self.graph[b]
+
+            else:
+                print("not present")
+        print(self.graph)
+        self.switch()
+
+
+    def delete_edge(self):
+        a = int(input("enter the number of edges you want to delete"))
+        for i in range(a):
+            b = int(input("enter the starting node"))
+            c = int(input("enter the end node"))
+            if b and c in self.graph and self.graph[b].__contains__(c):
+                self.graph[b].remove(c)
+            elif b in self.graph and not self.graph[b].__contains__(c):
+                print("edge not present")
+
+            else:
+                print("either both or one of b and c not present")
+        print(self.graph)
+        self.switch()
+
+    def print_graph(self):
+        print("the graph is")
+        print(self.graph)
+        self.switch()
+
+g = graphs()
+g.switch()
