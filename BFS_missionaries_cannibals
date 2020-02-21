@@ -1,0 +1,160 @@
+graph={}
+parent={}
+id=[]
+inital_state=(3,3,"L",0,0)
+graph[inital_state]=[]
+
+class missionaries_cannibals():
+    missionarie_left=inital_state[0]
+    cannibals_left=inital_state[1]
+    boat = inital_state[2]
+    missionarie_right = inital_state[3]
+    cannibals_right = inital_state[3]
+    final_state=(0,0,"R",3,3)
+    visited_node=[(inital_state)]
+
+    def goal(self,a):
+        if a==self.final_state:
+            self.solution(a)
+
+    def valid(self,x):
+        if((x[0]>=x[1] or x[0]==0) and (x[3]>=x[4] or x[3]==0)):
+            return True
+        else:
+            return False
+
+    def solution(self,b):
+        while b!=inital_state:
+            id.append(b)
+            k=parent[b]
+            self.solution(k)                                       #recurrsion
+        id.append(inital_state)
+        for i in range(len(id)-1,-1,-1):
+            print(id[i])
+        print("graph", graph)
+        exit(0)
+
+    def method(self,x):
+        if x[2]=="L":
+
+            if x[0]>0 and x[1]>0:                                          # move 1M and 1C
+                y=(x[0]-1,x[1]-1,"R",x[3]+1,x[4]+1)
+                if self.valid(y):
+                    if y not in self.visited_node:
+                        self.visited_node.append(y)
+                        graph[x].append(y)
+                        graph[y]=[]
+                        parent[y]=x
+                        self.goal(y)
+
+            if x[0]>=2:                                                                   # move 2M
+                y=(x[0]-2,x[1],"R",x[3]+2,x[4])
+
+                if self.valid(y):
+                    if y not in self.visited_node:
+                        self.visited_node.append(y)
+                        graph[x].append(y)
+                        graph[y]=[]
+                        parent[y]=x
+                        self.goal(y)
+
+            if x[1]>=2:                                                         # Move 2 C
+                y = (x[0], x[1]-2, "R", x[3], x[4]+2)
+
+                if self.valid(y):
+                    if y not in self.visited_node:
+                        self.visited_node.append(y)
+                        graph[x].append(y)
+                        graph[y] = []
+                        parent[y]=x
+                        self.goal(y)
+
+        else:
+            if x[2]=="R":                                           # MOVE 1M
+                if x[3]>=1:
+                    y=(x[0]+1,x[1],"L",x[3]-1,x[4])
+
+                    if self.valid(y):
+                        if y not in self.visited_node:
+                            self.visited_node.append(y)
+                            graph[x].append(y)
+                            graph[y] = []
+                            parent[y]=x
+                            self.goal(y)
+
+                if x[4]>=1:                                                 # move 1c
+                    y =  (x[0], x[1]+1, "L", x[3], x[4]-1)
+                    if self.valid(y):
+                        if y not in self.visited_node:
+                            self.visited_node.append(y)
+                            graph[x].append(y)
+                            graph[y] = []
+                            parent[y]=x
+                            self.goal(y)
+
+                if x[3] > 0 and x[4] > 0:                                # move 1M and 1C
+                    y = (x[0] +1, x[1] +1, "L", x[3]-1, x[4]-1)
+                    if self.valid(y):
+                        if y not in self.visited_node:
+                            self.visited_node.append(y)
+                            graph[x].append(y)
+                            graph[y] = []
+                            parent[y]=x
+                            self.goal(y)
+
+                if x[3] >= 2:                                           # move 2M
+                    y = (x[0]+2, x[1], "L", x[3]-2, x[4])
+                    if self.valid(y):
+                        if y not in self.visited_node:
+                            self.visited_node.append(y)
+                            graph[x].append(y)
+                            graph[y] = []
+                            parent[y]=x
+                            self.goal(y)
+
+                if x[4] >= 2:                                                # Move 2 C
+                    y = (x[0], x[1]+2, "L", x[3], x[4]-2)
+                    if self.valid(y):
+                        if y not in self.visited_node:
+                            self.visited_node.append(y)
+                            graph[x].append(y)
+                            graph[y] = []
+                            parent[y]=x
+                            self.goal(y)
+
+
+        i=self.visited_node.index(x)
+        j=self.visited_node[i+1]
+        self.method(j)
+
+
+m=missionaries_cannibals()
+m.method(inital_state)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
