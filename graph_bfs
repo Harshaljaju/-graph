@@ -1,0 +1,26 @@
+graph={ 1:[2,3],
+        2:[4,5],
+        3:[6],
+        4:[],
+        5:[7],
+        6:[],
+        7:[]
+}
+print (graph)
+queue=[]
+a=int(input("enter the starting node"))
+queue.append(a)
+
+def bfs():
+        # if a in graph:
+        #         queue.append(a)
+        while queue:
+                s=queue.pop(0)
+                print(s)
+                for neighbour in graph[s]:
+                        print("NEIGHBOUR",neighbour)
+                        if neighbour not in queue:
+                                queue.append(neighbour)
+                        print("queue",queue)
+bfs()
+
