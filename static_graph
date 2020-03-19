@@ -1,0 +1,109 @@
+graph={ 0:[2],
+        2:[5,1],
+        1:[4],
+        5:[4],
+        4:[]
+}
+print(graph)
+print(graph.keys())
+print(graph.values())
+print(graph.items())
+print("nodes", graph.keys(), "\n{},{}".format(graph.keys(), graph.values()))
+
+
+def create_edge():
+    edge = []
+    for nodes in graph:
+        for neighbour in graph[nodes]:
+            edge.append((nodes, neighbour))
+    return (edge)
+
+
+print("edges", create_edge())
+
+
+def add_node(graph):
+    a = int(input("enter the number of node you want to add"))
+    for i in range(a):
+        b = int(input("enter the node/key you want to enter"))
+        if b not in graph.keys():
+            print("enter the value for the coreesponding key")
+            c = list(map(int,input().split()))
+            graph[b] =c    
+        else:
+            print("already present")
+    return(graph)
+print("graph",add_node(graph))
+
+def delete_node(graph):
+    a = int(input("enter the number of node you want to delete"))
+    for i in range(a):
+        b = int(input("enter the node/key you want to delete"))
+        if b in graph:
+            for node in graph:
+                for neighbour in graph[node]:
+                #if b in graph:
+                    if neighbour==b:
+                        graph[node].remove(b)
+                    else:
+                       pass
+        if b in graph:
+            del graph[b]
+
+        else:
+            print("not present")
+    return (graph)
+print("graph",delete_node(graph))
+
+def add_edge(graph):
+    a = int(input("enter the number of edges you want to add"))
+    for i in range(a):
+        b = int(input("enter the starting node"))
+        c= int(input("enter the end node"))
+        if b and c in graph and not graph[b].__contains__(c):
+          graph[b].append(c)
+        elif b and c in graph and graph[b].__contains__(c):
+           print("edge present")
+        elif b in graph and c not in graph:
+           graph[c] = []
+           graph[b].append(c)
+        else:
+           print("both not present")
+
+    return(graph)
+print("graph",add_edge(graph))
+
+def delete_edge(graph):
+    a = int(input("enter the number of edges you want to delete"))
+    for i in range(a):
+        b = int(input("enter the starting node"))
+        c = int(input("enter the end node"))
+        if b and c in graph and graph[b].__contains__(c):
+            graph[b].remove(c)
+        elif b in graph and not graph[b].__contains__(c):
+            print("edge not present")
+
+        else:
+            print("either both or one of b and c not present")
+
+    return (graph)
+
+print("graph", delete_edge(graph))
+
+"""
+
+visited = []
+queue = []
+def bfs(visited, graph, node):
+    if node not in visited:
+        queue.append(node)
+        if queue!= 0:
+            value = queue.pop(0)
+            visited.append(value)
+            print(visited)
+            for neighbour in graph[value]:
+                    bfs(visited,graph,neighbour)
+                # if neighbour not in visited:
+                #     queue.append(neighbour)
+bfs(visited, graph, 0)
+"""
