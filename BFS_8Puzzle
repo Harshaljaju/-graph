@@ -1,0 +1,274 @@
+import sys
+graph={}
+parent={}
+inital_list=[8,3,5,4,1,6,2,7,0]
+goal_list=[1,2,3,8,0,4,7,6,5]
+visited_node=[inital_list]
+id=[]
+# sys.setrecursionlimit(5000)
+
+class bfs_8puzzle():
+
+    def check_goal(self,list):
+        # print("lgt",list,goal_list)
+        if list==goal_list:
+            self.solution(list)
+
+    def solution(self,list):
+        while list!=inital_list:
+            id.append(list)
+            p_id=parent[tuple(list)]
+            self.solution(p_id)
+        id.append(inital_list)
+        id.reverse()
+        print("graph",graph)
+        print("path")
+        for i in id:
+            print(i)
+
+        # print("name")
+        # print(graph)
+        # print(visited_node)
+        exit(0)
+
+    def swap(self,list,a,b):
+        temp=list[b]                   # a index pe zero hai
+        list[b]=0
+        list[a]=temp
+        # print("list",list)
+        return list
+
+    def method(self,dup_list):
+        graph[tuple(dup_list)]=[]
+
+        # case 0
+        list=dup_list.copy()
+        if list[0]==0:
+            # print("case 0")
+            swap_list=self.swap(list,0,1)                                 #right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                # print("vi",visited_node)
+                graph[tuple(dup_list)].append(swap_list)
+                # print("graph",graph)
+                parent[tuple(swap_list)]=dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 0, 3)                             # down shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case 1
+        list = dup_list.copy()
+        if list[1] == 0:
+
+            swap_list = self.swap(list, 1, 2)                                # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 1, 0)                                   # left shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 1, 4)                                   # down shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case 2
+        list = dup_list.copy()
+        if list[2] == 0:
+
+            swap_list = self.swap(list, 2,1)                                     # left shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 2,5)                                     # down shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case 3
+        list = dup_list.copy()
+        if list[3] == 0:
+
+            swap_list = self.swap(list, 3, 0)                                  # up  shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 3,4)                                  # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 3,6)                                   # down shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        #case 4
+        list = dup_list.copy()
+        if list[4] == 0:
+
+            swap_list = self.swap(list, 4,1)                                       # up  shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 4,5)                                         # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 4,7)                                           # down shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 4, 3)                                          # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case 5
+        list = dup_list.copy()
+        if list[5] == 0:
+
+            swap_list = self.swap(list, 5,2)                                             # up  shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 5,4)                                           # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 5,8)                                           # down shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case 6
+        list = dup_list.copy()
+        if list[6]==0:
+
+            swap_list=self.swap(list,6,3)                                                #up shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)]=dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 6,7)                                              # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case7
+        list = dup_list.copy()
+        if list[7] == 0:
+
+            swap_list = self.swap(list, 7,8)                                               # right shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 7,6)                                                # left shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 7,4)                                              # up shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+        # case 8
+        list = dup_list.copy()
+        if list[8] == 0:
+
+            swap_list = self.swap(list, 8,7)                                                # left shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] = dup_list
+                self.check_goal(swap_list)
+
+            list = dup_list.copy()
+            swap_list = self.swap(list, 8,5)                                                 # up shift
+            if swap_list not in visited_node:
+                visited_node.append(swap_list)
+                graph[tuple(dup_list)].append(swap_list)
+                parent[tuple(swap_list)] =dup_list
+                self.check_goal(swap_list)
+
+        h=visited_node.index(dup_list)
+        j=visited_node[h+1]
+        # print("graph",graph)
+        self.method(j)
+
+bfs=bfs_8puzzle()
+sys.setrecursionlimit(5000)
+bfs.method(inital_list)
+
+
